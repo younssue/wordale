@@ -7,10 +7,15 @@ let timer;
 function appStart() {
   const displayGameover = () => {
     const div = document.createElement("div");
-    div.innerText = "게임이 종료됐습니다";
+    div.innerText = "정답입니다. 게임이 종료됐습니다";
     div.style =
       "display:flex; justify-content:center; align-items:center; position:absolute; top:40vh; left:38%; background-color:white; width:200px; height:200px";
     document.body.appendChild(div);
+
+    //3초뒤에 페이지를 새로고침하는 코드 이벤트
+    setTimeout(() => {
+      location.reload();
+    }, 3000);
   };
 
   const nextLine = () => {
@@ -46,8 +51,40 @@ function appStart() {
       block.style.color = "white";
       console.log("입력한 글자:", 입력한_글자, "정답_글자", 정답_글자);
     }
-    if (맞은_갯수 === 5) gameover();
-    else nextLine();
+    // if (맞은_갯수 === 5) gameover();
+    // else nextLine();
+
+    if (맞은_갯수 === 5) {
+      gameover();
+    } else {
+      //오답일때 오답 메세지 불러오기
+      displayResultMessage();
+
+      setTimeout(() => {
+        nextLine();
+      }, 1000);
+    }
+  };
+
+  const displayResultMessage = () => {
+    const div = document.createElement("div");
+    div.innerText = "오답입니다";
+    div.id = "result-message"; // 결과 메세지라고 아이디 값을 줌
+    div.style =
+      "display:flex; justify-content:center; align-items:center; position:absolute; top:40vh; left:38%; background-color:red; width:200px; height:200px";
+    document.body.appendChild(div);
+
+    // 2초 지나고 오답입니다 메세지 사라지게 하기
+    setTimeout(() => {
+      removeResultMessage();
+    }, 2000);
+  };
+
+  const removeResultMessage = () => {
+    const resultMessage = document.getElementById("result-message");
+    if (resultMessage) {
+      resultMessage.remove();
+    }
   };
 
   const handleBackspace = () => {
@@ -83,6 +120,28 @@ function appStart() {
     }
   };
 
+  const handleMouseClick = (event) => {
+    const clickKey = event.currentTarget.getAttribute("data-key");
+    console.log("clickKey", clickKey);
+    const thisBlock = document.querySelector(
+      `.board-block[data-index='${attempts}${index}']`
+    );
+
+    // 마우스 클릭 시 정답을 입력합니다.
+    if (clickKey === "Backspace") handleBackspace();
+    else if (index === 5) {
+      if (clickKey === "Enter") handleEnterKey();
+      else return;
+    } else {
+      thisBlock.innerHTML = clickKey;
+      index += 1;
+      //index =index+1; , index++; 같은 표현
+    }
+  };
+
+  // 키보드 클릭 이벤트 처리
+  // window.addEventListener("keydown", handleKeydown);
+
   //타이머
   const startTimer = () => {
     const 시작_시간 = new Date();
@@ -101,5 +160,12 @@ function appStart() {
   };
   startTimer();
   window.addEventListener("keydown", handleKeydown);
+  // 마우스 클릭 이벤트 처리
+  const boardBlocks = document.querySelectorAll(
+    ".keyboard-block, .keyboard-block-1"
+  );
+  boardBlocks.forEach((block) => {
+    block.addEventListener("click", handleMouseClick);
+  });
 }
 appStart();
