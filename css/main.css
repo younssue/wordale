@@ -1,0 +1,84 @@
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #d3d6da;
+}
+.title {
+  font-size: 50px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+main {
+  display: flex;
+  /* 상하로 칼럼을 준다 */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin: 50px 0 50px 0;
+}
+
+.board-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* 여기서는 한줄씩 갭을 둬서 양옆으로 갭을 줌 */
+  gap: 5px;
+}
+
+.board-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #d3d6da;
+  width: 60px;
+  height: 60px;
+}
+
+footer {
+  display: flex;
+  /* 상하로 칼럼을 준다 */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 10px 10px 10px;
+  gap: 5px;
+}
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* 여기서는 한줄씩 갭을 둬서 양옆으로 갭을 줌 */
+  gap: 5px;
+}
+
+.keyboard-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: darkgray;
+  border-radius: 10px;
+  /* border: 3px solid #d3d6da; */
+  width: 60px;
+  height: 80px;
+  font-size: 25px;
+}
+
+.keyboard-block-1 {
+  width: 80px;
+  height: 80px;
+  background-color: darkgray;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard-block__img {
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
