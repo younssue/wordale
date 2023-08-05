@@ -1,5 +1,3 @@
-const 정답 = "APPLE";
-
 let attempts = 0;
 let index = 0;
 let timer;
@@ -7,7 +5,7 @@ let timer;
 function appStart() {
   const displayGameover = () => {
     const div = document.createElement("div");
-    div.innerText = "정답입니다. 게임이 종료됐습니다";
+    div.innerText = "정답입니다. <br>게임이 종료됐습니다";
     div.style =
       "display:flex; justify-content:center; align-items:center; position:absolute; top:40vh; left:38%; background-color:white; width:200px; height:200px";
     document.body.appendChild(div);
@@ -32,8 +30,17 @@ function appStart() {
     clearInterval(timer);
   };
 
-  const handleEnterKey = () => {
+  const handleEnterKey = async () => {
     let 맞은_갯수 = 0;
+    // await 함수를 쓰기 위해선 async 가 필요
+    // await 함수: 응답이 올때 까지 기다렸다가 응답이 오면 다음 함수로 진행할 수 있게 기다려 주는 함수
+    // 이제는 정답이 정해졍 있지 않고 서버에서 준 정답을 가져와 비교해야함
+    //fetch: 자바스크립트에서 서버로 요청 보낼때 쓰는 함수
+    const 응답 = await fetch("/answer");
+
+    // 응답을 받아와서 json값으로 바꿔준다
+    const 정답 = await 응답.json();
+
     //정답확인
     //엔터키를 눌렸을 때 한줄에 쓰여진 단어를 가져옴
     for (let i = 0; i < 5; i++) {
